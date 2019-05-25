@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Horse Racing</title>
+	<link rel="stylesheet" type="text/css" href="style/fonts/fonts.css"/>
+	<link rel="stylesheet" type="text/css" href="style/style1.css">
+	<link rel="stylesheet" type="text/css" href="style/jquery-ui.css">
+	<script type="text/javascript" src = "js/jquery.js"></script>
+	<script type="text/javascript" src = "js/jquery-ui.js"></script>
+	<script type="text/javascript" src = "js/jquery-animate.js"></script>
+</head>
+<body>
+	<h1>Horse Racing</h1>
+</body>
+
+<div class = "buttonContainer">
+	<button id = "containerOne" onclick="containerThree();" class = selector id = "playGame">Play Game &#8594;</button>
+</div>
+
+<div class = "buttonContainer">
+	<button id = "containerThree" onclick="containerOne();" class = selector id = "playGame">&#8592; Create More Players</button>
+
+</div>
+
+<div id="betContainer">
+
+	<h2>Select a horse and place tokens in the box below to </h2>
+	<h3>allot money from your wallet towards a bet.</h2>
+	<form action="#" id = "playerList">
+	  <fieldset>
+	    <select name="character" id="character">
+	    </select>
+	  </fieldset>
+	</form>
+
+	<div id = "betTable">
+		<table id = "bettable">
+		<thead>
+		    <tr>
+		      <th>NAME</th>
+		      <th>TOTAL WALLET</th>
+		      <th>BET PLACED</th>
+		    </tr>
+		</thead>
+		  	<tbody>
+			</tbody>
+		</table>
+	</div>
+
+	<div id = "coins">
+    <div id="draggable1" class = "token"><img src="style/images/1.png"></img></div>
+    <div id="draggable10" class = "token"><img src="style/images/10.png"></img></div>
+    <div id="draggable50" class = "token"><img src="style/images/50.png"></img></div>
+    <div id="draggable100" class = "token"><img src="style/images/100.png"></img></div>
+	<div id="draggablex" class = "token"><img src="style/images/x.png"></img></div>
+	<div id="droppable"><p>Drag here to place a bet. Use the "x" token to specify an amount.</p></div>
+
+	<button onclick = "containerThree();" id = "returnButton">Return to Game</button>
+	</div>
+</div>
+
+<div id="playerContainer">
+	<h2>To create a new user, please press the button below.</h2>
+	<button onclick="addUser();" id = "newUser">Create New User</button>
+	
+	<div id = "playerTable">
+		<table id = "targettable">
+		<thead>
+		    <tr>
+		      <th>FIRST NAME</th>
+		      <th>LAST NAME</th>
+		      <th>WALLET</th>
+		    </tr>
+		</thead>
+		  	<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div id="gameContainer">
+	<div>
+		<table id = "horsesInRace">
+		<thead>
+		    <tr>
+		      <th>HORSE</th>
+		      <th>ODDS</th>
+		      <th>$2 PAYOFF</th>
+		      <th>PAYOFF AMOUNT</th>
+		    </tr>
+		</thead>
+		  	<tbody>
+			</tbody>
+		</table>
+	</div>
+
+	<div id = "horsetable">
+		<table id = "horseTable">
+		<thead>
+		    <tr>
+		      <th>PLAYER</th>
+		      <th>WALLET</th>
+		      <th>BET</th>
+		      <th>RETURN</th>
+		    </tr>
+		</thead>
+		  	<tbody>
+			</tbody>
+		</table>
+	</div>
+
+	<div id = "gameButtonDiv">
+		<button id = "gameButton" onclick = "doRace();">Race</button>
+		<button id = "gameButton" onclick = "regenerateHorses();">Regenerate Horse List</button>
+		<button id = "gameButton" onclick = "resetRace();">Reset Race</button>
+	</div>
+	<div id = "canvasEquivalent">
+		<div class = "horse" id = "animate0"></div>
+		<div class = "horse" id = "animate1"></div>
+		<div class = "horse" id = "animate2"></div>
+		<div class = "horse" id = "animate3"></div>
+		<div class = "horse" id = "animate4"></div>
+		<div class = "horse" id = "animate5"></div>
+		<div class = "horse" id = "animate6"></div>
+		<div class = "horse" id = "animate7"></div>
+	</div>
+	<div id = "endDiv"><button id = "endButton" onclick = "checkWinner();">End Game</button></div>
+</div>
+
+<script type="text/javascript" src = "js/script.js"></script>
+
+</html>

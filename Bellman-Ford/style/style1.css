@@ -1,0 +1,87 @@
+body{
+	color: #000000;
+	background-color: #ffffff;
+	padding-left: 60px;
+	padding-right: 60px;
+	padding-bottom: 60px;
+}
+
+h1{
+	text-align: center;
+	font-family: ProximaNova-Regular, Avenir, Helvetica;
+	font-size: 60pt;
+	padding-top: 50pt;
+}
+
+h2{
+	padding-top: 30px;
+	padding-bottom: 5px;
+	font-family: Avenir, Helvetica;
+}
+
+h3{
+	padding-top: 20px;
+	font-size: 30pt;
+	font-style: italic;
+	font-family: Avenir, Helvetica;
+}
+
+p{
+	padding-bottom: 20px;
+	padding-right: 60px;
+	font-family: Avenir, Helvetica;
+}
+
+p1{
+	padding-top:30px;
+	padding-bottom: 60px;
+	font-family: Avenir, Helvetica;
+}
+
+p2{
+	padding-top:30px;
+	padding-bottom: 60px;
+	font-family: Avenir, Helvetica;
+	font-size: 30px;
+}
+
+p3{
+	padding-bottom: 20px;
+	padding-right: 60px;
+	font-family: Avenir, Helvetica;
+	text-decoration: underline;
+}
+
+strong{
+	font-family: Avenir, Helvetica;
+	font-weight: 1000;
+}
+
+*{
+	padding: 0;
+	margin: 0;
+}
+
+canvas {
+    display: block; 
+    margin: 0 auto; 
+    background-color: #f7f7f5; 
+	border: 1px solid #000000;
+    border-radius: 5px;
+    line-height: 1.5em;
+}
+
+pre{
+    background-color: #f7f7f5;
+    color: #000000;
+    font-family: Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace;
+    font-size: 14px;
+    padding: 1.8em 6px 1.8em 16px;
+    margin-bottom: 1.5em;
+    display: block;
+    overflow: auto;
+    overflow-y: auto;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    line-height: 1.5em;
+}

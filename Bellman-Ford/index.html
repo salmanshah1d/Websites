@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bellman-Ford Algorithm</title>
+	<link rel="stylesheet" type="text/css" href="style/fonts/fonts.css"/>
+	<link rel="stylesheet" type="text/css" href="style/style1.css"/>
+	
+</head>
+<body>
+	<h1>Bellman-Ford Algorithm</h1>
+	<h3>Explanation</h3>
+	<h2>What it Does</h2>
+	<p style="width: 1250px;"> <!--Shortens paragraph to make room for image to come-->
+<img src="images/bellman.jpg" style="float: right; padding-left: 40px;"/>
+	The Bellman-Ford Algorithm takes a graph of V vertices and E edges a vertex from said graph. This vertex is known as the source. 
+
+The edges (paths between two vertices) are weighted (negative or positive) and directed (explanation / applications below). 
+
+BF traverses the graph (V - 1) iterations. It starts out with the distance from the source to itself being 0 and all other distances being infinity. The goal is to return the shortest (lowest weight) path from the source to each vertex. In each iteration, it goes through all the vertices and explores the edges extending from the vertex in question, updating the shortest path accordingly. For example, given a graph of vertices S, A, and B, if iteration 1, vertex s reveals that the first vertex (vertex S, so the source) connects to vertex A with an edge of weight 6, the shortest path known so far from S to A is 6. Then if iteration 1, vertex A reveals that there's an edge from A to B of -3, then the shortest known path so far from S to B is 3 (6-3). S to A remains unchanged. In the graphical representation below, you will explore BF traversing a somewhat complex graph. 
+
+Please refer to "Negative-Weight Cycle" below to learn what it means and how the Bellman-Ford detects it.
+<p2 style="float:right;">Richard Bellman, a Creator of DP and BF--></p2></p> 
+
+	<h2>Background Knowledge</h2>
+	<p3>Weighted / Shortest</p3>
+	<p>The Bellman-Ford Algorithm is used on graphs with weighted edges. The purpose of it is to find the total weight of the set of edges that have the lowest collective weight from the source vertex to every other vertex (known as the shortest paths). A practical application of weighted edges might be if you're trying to find the shortest navigational distance from a source town to another. Different weights would represent distances, and the shortest path (lowest weights) would be the shortest distance.
+
+A negative weighted distance on the other hand could represent, for example, energy absorbed or released. In a graph that the paths that a molecule can take during a chemical reaction, weights represents energy absorbed (+ve) or released (-ve) in the transition. In this case, the shortest distance might represent most heat lost.
+	</p>
+	<p3>Directed</p3>
+	<p>In some graphs, the edge between two vertices may be only one-way. In a graph that represents navigational distance (such as to find the shortest route on an app like Uber), this would represent a one-way street.
+	</p>
+	<p3>Negative-Weight Cycle</p3>
+	<p>If the sum of the weights of all the edges in a cycle (set of connected vertices) are negative, it represents a negative-weight cycle. This means that you can traverse through that cycle continuously and the shortest path decreases indefinitely. The Bellman-Ford Algorithm can detect whether there is a negative weight cycle present in a graph. More in the graphical representation.
+
+Mathematically, by iteration (V-1) of Bellman-Ford, the shortest paths between the source and all vertices are found, assuming there is no negative-cycle. However, BF goes through iteration V as well, and if the shortest paths decrease further between iteration (V - 1) and (V), then BF confirms that there is a negative-weight cycle within the graph and prints that it has been detected.
+	</p>
+
+	<h2>Time Complexity</h2>
+	<p>O(VE), where V represents vertices and E represents edges. It traverses (V) iterations and in each iteration, it traverses through (E) edges of the graph. Hence, the time complexity is O(VE).</p>
+
+	<h3>Code in Java</h3>
+
+	<h2>Edge Class</h2>
+	<pre>public class Edge { <!--Displays code-->
+	int source, destination, weight;
+	
+	// creates an edge with unspecified source, destination, and weight
+	Edge() {
+		this.source = 0;
+		this.destination = 0;
+		this.weight = 0;
+	}
+
+	public int getSource() {
+		return source;
+	}
+
+	public void setSource(int source) {
+		this.source = source;
+	}
+
+	public int getDestination() {
+		return destination;
+	}
+
+	public void setDestination(int destination) {
+		this.destination = destination;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+	
+	public String toString() {
+		return (source + " to " + destination + ", " + weight);
+	}
+}</pre>
+	<h2>Graph Class (includes Bellman-Ford Algorithm)</h2>
+	<pre>public class BFGraph {
+	int V, E;
+	Edge edge[];
+	
+	// Creates a graph with V vertices and E edges
+	BFGraph(int v, int e) {
+		this.V = v;
+		this.E = e;
+		edge = new Edge[e];
+		for (int i = 0; i < e; ++i) {
+			edge[i] = new Edge();
+		}
+	}
+	
+	public void setEdge(int edgeNum, int source, int destination, int weight) {
+		this.edge[edgeNum].setSource(source);
+		this.edge[edgeNum].setDestination(destination);
+		this.edge[edgeNum].setWeight(weight);
+	}
+	
+	public Edge getEdge(int j) {
+		return edge[j];
+	}
+	
+	// The main function that finds shortest distances from the source to all other
+		// vertices using the Bellman-Ford algorithm. The function also detects whether
+		// or not negative-weight cycles are present, returning true/false (but does not
+		// identify them).
+		public void BellmanFordAlgorithm(BFGraph graph, int source) {
+			int V = graph.V, E = graph.E;
+			int dist[] = new int[V];
+
+			// Step 1: Initialize distances from the source to all other vertices as
+			// "Infinity".
+			for (int i = 0; i < V; ++i) {
+				dist[i] = Integer.MAX_VALUE;
+			}
+			dist[source] = 0;
+
+			// Step 2: Traverses the graph V - 1 times. A simple shortest path from source
+			// to any other vertex can have at-most V - 1 edges.
+			for (int i = 1; i < V; ++i) {
+				for (int j = 0; j < E; ++j) {
+					int u = graph.getEdge(j).getSource();
+					int v = graph.getEdge(j).getDestination();
+					int weight = graph.getEdge(j).getWeight();
+					if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v])
+						dist[v] = dist[u] + weight;
+				}
+			}
+
+			// Step 3: check for negative-weight cycles. The above
+			// step guarantees shortest distances if graph doesn't
+			// contain negative weight cycle. If we get a shorter
+			// path, then there is a cycle.
+
+			for (int j = 0; j < E; ++j) {
+				int u = graph.getEdge(j).getSource();
+				int v = graph.getEdge(j).getDestination();
+				int weight = graph.getEdge(j).getWeight();
+				if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v])
+					System.out.println("Graph contains negative weight cycle.");
+			}
+
+			printArr(dist, V);
+		}
+
+		// A utility function used to print the solution
+		void printArr(int dist[], int V) {
+			System.out.println("Vertex   Distance from Source");
+			for (int i = 0; i < V; ++i)
+				System.out.println(i + "\t\t" + dist[i]);
+		}
+}</pre>
+	<h2>Driver Class (for the specific example I've picked)</h2>
+	<pre>public class BFDriver {
+	public static void main(String[] args) {
+		int V = 6; // Number of vertices in graph
+		int E = 8; // Number of edges in graph
+		
+		BFGraph BFgraph = new BFGraph(V, E);
+
+		// adds 0th edge from 0-1 (or S-A) with a weight of 10
+		BFgraph.setEdge(0, 0, 1, 10);
+
+		// adds 1st edge from 2-1 (or B-A) with a weight of 1
+		BFgraph.setEdge(1, 2, 1, 1);
+
+		// adds 2nd edge from 3-2 (or C-B) with a weight of -2
+		BFgraph.setEdge(2, 3, 2, -2);
+
+		// adds 3rd edge from 4-1 (or D-A) with a weight of -4
+		BFgraph.setEdge(3, 4, 1, -4);
+
+		// adds 4th edge from 4-3 (or D-C) with a weight of -1
+		BFgraph.setEdge(4, 4, 3, -1);
+
+		// adds 5th edge from 5-4 (or E-D) with a weight of 1
+		BFgraph.setEdge(5, 5, 4, 1);
+
+		// adds 6th edge from 0-5 (or S-E) with a weight of 8
+		BFgraph.setEdge(6, 0, 5, 8);
+
+		// adds 7th edge from 1-3 (or A-C) with a weight of 2
+		BFgraph.setEdge(7, 1, 3, 2);
+
+		BFgraph.BellmanFordAlgorithm(BFgraph, 0);
+	}
+}</pre>
+	<!--Canvas-->
+	<h3>Graphical Representation and Textual Explanation</h3>
+	<p2>Left-click to progress. Right-click to regress.</p2>
+	<canvas id="myCanvas" width="1325" height="600"></canvas>
+
+<script type = "text/javascript" src = "js/script.js"></script>
+</body>
+</html>
